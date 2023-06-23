@@ -1,0 +1,1 @@
+# Azure-Invoice-recognizer-app
