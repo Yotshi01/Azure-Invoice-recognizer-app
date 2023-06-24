@@ -165,11 +165,6 @@ def analyze_invoice(invoiceUrl):
     print(json_invoice_data)
     print(json_invoice_items)
     return json_invoice_data
-    
-app.route('/<string:n>')
-def restApi(n):
-    return analyze_invoice(n)
-
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
@@ -180,6 +175,11 @@ def hello():
         session.pop('json_invoice_data', None)
         return render_template('index.html', json_available=True, json_data=json_invoice_data)
     return render_template('index.html', json_available=False)
+
+@app.route('/analyze', methods=['GET', 'POST'])
+def restApi():
+    invoice_url=request.args.get('url')
+    return analyze_invoice(invoice_url)
 
 @app.route('/download')
 def download():
