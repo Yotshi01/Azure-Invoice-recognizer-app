@@ -187,4 +187,3 @@ def download():
  
 if __name__ == '__main__':
     app.run(debug=True)
-    # analyze_invoice(invoice_url)
