@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, send_file, jsonify
 from flask_mysqldb import MySQL
 from azure.ai.formrecognizer import DocumentAnalysisClient
 from azure.core.credentials import AzureKeyCredential
@@ -19,6 +19,7 @@ def format_polygon(polygon):
     return ", ".join(["[{}, {}]".format(p.x, p.y) for p in polygon])
  
 app = Flask(__name__)
+app.secret_key = '1234567'
 
 app.config['MYSQL_HOST'] = '127.0.0.1'
 app.config['MYSQL_USER'] = 'root'
@@ -109,15 +110,19 @@ def analyze_invoice(invoiceUrl):
     # Convert the vendor address dictionary to a string
     vendor_address_dict = invoice_data["VendorAddress"]
     vendor_address = ", ".join(f"{key}: {value}" for key, value in vendor_address_dict.items()) if vendor_address_dict is not None else None
+    invoice_data["VendorAddress"] = vendor_address
 
     # Convert the customer address dictionary to a string
     customer_address_dict = invoice_data["CustomerAddress"]
     customer_address = ", ".join(f"{key}: {value}" for key, value in customer_address_dict.items()) if customer_address_dict is not None else None
+    invoice_data["CustomerAddress"] = customer_address
 
     # Convert the shipping address dictionary to a string
     shipping_address_dict = invoice_data["ShippingAddress"]
     shipping_address = ", ".join(f"{key}: {value}" for key, value in shipping_address_dict.items()) if shipping_address_dict is not None else None
+    invoice_data["ShippingAddress"] = shipping_address
 
+    invoice_data["Items"] = invoice_items
 
     insert_query = "INSERT INTO invoice (VendorName, VendorAddress, CustomerName, CustomerAddress, InvoiceNumber, InvoiceDate, PaymentTerm, PurchaseOrder, TotalAmount, PreviousUnpaidBalance, TaxItems, TotalDiscount, ShippingAddress, Subtotal, TotalTax) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)" 
     data = ( invoice_data["VendorName"], vendor_address, invoice_data["CustomerName"], customer_address, invoice_data["InvoiceNumber"], invoice_data["InvoiceDate"], invoice_data["PaymentTerm"], invoice_data["PurchaseOrder"], invoice_data["InvoiceTotal"], invoice_data["PreviousUnpaidBalance"], invoice_data["TotalDiscount"], shipping_address, invoice_data["SubTotal"], invoice_data["TotalTax"], invoice_data["TaxItems"])
@@ -147,19 +152,38 @@ def analyze_invoice(invoiceUrl):
     invoice_data["InvoiceDate"] = invoice_date.value.strftime("%Y-%m-%d") if invoice_date else None
 
     # Convert the `invoice_data` and `invoice_items` dictionaries to JSON
-    json_invoice_data = json.dumps(invoice_data, default=str)
-    json_invoice_items = json.dumps(invoice_items, default=str)
+    json_invoice_data = json.dumps(invoice_data, default=str, indent=4)
+    json_invoice_items = json.dumps(invoice_items, default=str, indent=4)
+
+    jsonify_invoice_data = jsonify(invoice_data)
+
+    # Store the JSON data in session variables
+    session['json_invoice_data'] = json_invoice_data
+    session['json_invoice_items'] = json_invoice_items
 
     # Print or use the JSON data as needed
     print(json_invoice_data)
     print(json_invoice_items)
-    
+    return json_invoice_data
+
 @app.route('/', methods=['GET', 'POST'])
 def hello():
     if request.method=='POST':
         print(request.form['httpLink'])
         analyze_invoice(request.form['httpLink'])
-    return render_template('index.html')
+        json_invoice_data = session.get('json_invoice_data')
+        session.pop('json_invoice_data', None)
+        return render_template('index.html', json_available=True, json_data=json_invoice_data)
+    return render_template('index.html', json_available=False)
+
+@app.route('/analyze', methods=['GET', 'POST'])
+def restApi():
+    invoice_url=request.args.get('url')
+    return analyze_invoice(invoice_url)
+
+@app.route('/download')
+def download():
+    return 'Hi there'
  
 if __name__ == '__main__':
     app.run(debug=True)
