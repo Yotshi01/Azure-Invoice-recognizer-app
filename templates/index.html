@@ -4,16 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <div class="mb-3">
+    <div class="container">
+        <h1>Invoice Analyzer</h1>
+        <p>Upload the invoice link below to analyze it:</p>
         <form action="/" method="POST">
-            <div class="mb-3">
-                <label for="link" class="form-label">Upload Link Here</label>
-                <input type="text" class="form-control" name="httpLink" id="link" placeholder="">
+            <div class="form-group">
+                <label for="link" class="form-label">Invoice Link:</label>
+                <input type="text" class="form-control" name="httpLink" id="link" placeholder="Enter the link">
             </div>
             <button type="submit" class="btn btn-primary">Analyze</button>
-        </form>
-    </div>
+        
+        
+        <br>
+        <a href="/download" download="invoice_data.json"><button class="btn btn-primary">Download JSON</button></a>
+    </form>
+        
 </body>
 </html>
