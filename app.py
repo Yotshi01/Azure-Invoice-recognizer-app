@@ -98,7 +98,7 @@ def analyze_invoice(invoiceUrl):
             item_quantity = item.value.get("Quantity")
             unit = item.value.get("Unit")
             unit_price = item.value.get("UnitPrice")
-            product_code = item.value.get("PrductCode")
+            #product_code = item.value.get("PrductCode")
             amount = item.value.get("Amount")
 
             item_data = {
@@ -107,7 +107,7 @@ def analyze_invoice(invoiceUrl):
                 "Quantity": item_quantity.value if item_quantity else None,
                 "Unit": unit.value if unit else None,
                 "UnitPrice": unit_price.value.amount if unit_price else None,
-                "ProductCode": product_code.value if product_code else None,
+                #"ProductCode": product_code.value if product_code else None,
                 "Amount": amount.value.amount if amount else None
             }
 
@@ -154,12 +154,11 @@ def analyze_invoice(invoiceUrl):
         item_quantity = item.get("Quantity")
         unit = item.get("Unit")
         unit_price = item.get("UnitPrice") if item.get("UnitPrice") is not None else None
-        product_code = item.get("ProductCode")
+        
         amount = item.get("Amount") if item.get("Amount") is not None else None
 
-        # insert query to store data in the child table named invoice_detail
-        insert_query2 = "INSERT INTO invoice_detail (IdNumber, InvoiceNumber, ItemDescription, Quantity, Unit, UnitPrice, ProductCode, Amount) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)" 
-        data2 = (i, invoice_number_of_subtable, item_description, item_quantity, unit, unit_price, product_code, amount)
+        insert_query2 = "INSERT INTO invoice_detail (IdNumber, InvoiceNumber, ItemDescription, Quantity, Unit, UnitPrice, Amount) VALUES ( %s, %s, %s, %s, %s, %s, %s)" 
+        data2 = (i, invoice_number_of_subtable, item_description, item_quantity, unit, unit_price, amount)
         cursor.execute(insert_query2, data2)
         mysql.connection.commit()
 
@@ -202,3 +201,4 @@ def download():
  
 if __name__ == '__main__':
     app.run(debug=True)
+    # analyze_invoice(invoice_url)
