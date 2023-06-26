@@ -88,8 +88,15 @@ pip install -r requirements.txt
 - For Windows:
 
   ```
-  venv\Scripts\activate
+  venv\Scripts\activate.ps1
   ```
+  .ps1 is written for PowerShell. If you are using another type of terminal then please refer the following
+
+* PowerShell (Windows): .ps1
+* Command Prompt (Windows): .bat or .cmd
+* Bash (Unix-like systems): .sh
+* Zsh (Unix-like systems): .zsh or .sh
+* Fish (Unix-like systems): .fish
 
 - For macOS/Linux:
 
