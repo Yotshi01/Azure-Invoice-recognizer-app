@@ -138,6 +138,6 @@ python app.py
 
 2. The API endpoint will return the extracted invoice data in JSON format, which can be further processed or integrated into other applications.
 
-##Congratulations! 
+## Congratulations! 
 
 You have successfully set up and run the Invoice Analyzer application on your local system. You can now analyze invoices, view the extracted data on the web interface, and utilize the API endpoint for programmatic access to the application.
