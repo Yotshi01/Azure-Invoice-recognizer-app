@@ -157,8 +157,8 @@ def analyze_invoice(invoiceUrl):
         
         amount = item.get("Amount") if item.get("Amount") is not None else None
 
-        insert_query2 = "INSERT INTO invoice_detail (IdNumber, InvoiceNumber, ItemDescription, Quantity, Unit, UnitPrice, ProductCode, Amount) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)" 
-        data2 = (i, invoice_number_of_subtable, item_description, item_quantity, unit, unit_price, product_code, amount)
+        insert_query2 = "INSERT INTO invoice_detail (IdNumber, InvoiceNumber, ItemDescription, Quantity, Unit, UnitPrice, Amount) VALUES ( %s, %s, %s, %s, %s, %s, %s)" 
+        data2 = (i, invoice_number_of_subtable, item_description, item_quantity, unit, unit_price, amount)
         cursor.execute(insert_query2, data2)
         mysql.connection.commit()
 
