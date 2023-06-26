@@ -29,7 +29,7 @@ Overall, the Invoice Analyzer project offers a convenient way to extract structu
 
 1. Clone the repository:
 ```
-git clone <repository-url>
+  git clone <repository-url>
 ```
 
 2. Navigate to the cloned repository directory.
@@ -37,7 +37,7 @@ git clone <repository-url>
 3. Create a virtual environment for the project:
 
 ```
-python3 -m venv venv
+  python3 -m venv venv
 ```
 
 4. Activate the virtual environment:
@@ -57,7 +57,7 @@ python3 -m venv venv
 5. Install the required dependencies:
 
 ```
-pip install -r requirements.txt
+  pip install -r requirements.txt
 ```
 
 6. Open the `app.py` file in a text editor.
@@ -107,11 +107,11 @@ pip install -r requirements.txt
 3. Run the Flask application:
 
 ```
-python3 app.py
+  python3 app.py
 ```
 or
 ```
-python app.py
+  python app.py
 ```
 
 4. The application should now be running locally on `http://localhost:5000`.
