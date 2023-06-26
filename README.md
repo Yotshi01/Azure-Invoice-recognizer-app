@@ -16,3 +16,121 @@ The Invoice Analyzer is a web application built using **Flask** and **Python** t
 5. API Endpoint: The application also works as an API by providing an endpoint `/analyze?url=`. Users can make HTTP requests to the API endpoint by providing the URL of the deployed web application followed by `/analyze?url=` and the URL of the PDF invoice. The API returns the extracted invoice data in **JSON format**, which can be further processed or integrated into other applications.
 
 Overall, the Invoice Analyzer project offers a convenient way to extract structured data from invoices using the Microsoft Azure Form Recognizer service. It provides both a web interface and an API endpoint, offering flexibility in accessing and utilizing the extracted invoice data.
+
+# How to run this application in local system?
+
+## Prerequisites
+
+- Python 3.x installed on your local system.
+- MySQL server installed and running.
+- Azure Form Recognizer service subscription and API key.
+
+## Installation and Setup
+
+1. Clone the repository:
+```
+git clone <repository-url>
+```
+
+2. Navigate to the cloned repository directory.
+
+3. Create a virtual environment for the project:
+
+```
+python3 -m venv venv
+```
+
+4. Activate the virtual environment:
+
+- For Windows:
+
+  ```
+  venv\Scripts\activate
+  ```
+
+- For macOS/Linux:
+
+  ```
+  source venv/bin/activate
+  ```
+
+5. Install the required dependencies:
+
+```
+pip install -r requirements.txt
+```
+
+6. Open the `app.py` file in a text editor.
+
+7. Update the following variables with your MySQL database configuration:
+
+- `app.config['MYSQL_HOST']`: MySQL host address.
+- `app.config['MYSQL_USER']`: MySQL username.
+- `app.config['MYSQL_PASSWORD']`: MySQL password.
+- `app.config['MYSQL_DB']`: MySQL database name.
+
+8. Update the `endpoint` and `key` variables with your Azure Form Recognizer service endpoint and API key.
+
+9. Ensure that your MySQL server is running.
+
+10. Connect to your MySQL server using a client tool (e.g., MySQL Workbench).
+
+11. Create a new database with the name specified in the `app.config['MYSQL_DB']` variable.
+
+12. Optionally, you can import the database schema and sample data from the `database.sql` file provided in the repository.
+
+## Running the Application
+
+1. Make sure you are in the project directory.
+
+2. Activate the virtual environment if it is not already activated:
+
+- For Windows:
+
+  ```
+  venv\Scripts\activate
+  ```
+
+- For macOS/Linux:
+
+  ```
+  source venv/bin/activate
+  ```
+
+3. Run the Flask application:
+
+```
+python3 app.py
+```
+or
+```
+python app.py
+```
+
+4. The application should now be running locally on `http://localhost:5000`.
+
+5. Open a web browser and visit `http://localhost:5000` to access the Invoice Analyzer application.
+
+## Analyzing an Invoice
+
+1. On the home page of the application, you can submit a PDF link of an invoice using the provided form.
+
+2. Enter the PDF link in the input field and click the "Analyze" button.
+
+3. The application will extract data from the invoice using the Azure Form Recognizer service and store it in the MySQL database.
+
+4. The extracted invoice data will be displayed on the web page, allowing you to view and interact with the structured information.
+
+## API Endpoint
+
+1. To access the application as an API, use the following endpoint: `http://localhost:5000/analyze?url=<pdf-url>`.
+
+- Replace `<pdf-url>` with the URL of the PDF invoice you want to analyze.
+
+- Example: `http://localhost:5000/analyze?url=https://example.com/invoice.pdf`.
+
+2. The API endpoint will return the extracted invoice data in JSON format, which can be further processed or integrated into other applications.
+
+##Congratulations! 
+
+You have successfully set up and run the Invoice Analyzer application on your local system. You can now analyze invoices, view the extracted data on the web interface, and utilize the API endpoint for programmatic access to the application.
