@@ -25,7 +25,7 @@ defer==1.0.6
 distlib==0.3.6
 distro==1.7.0
 distro-info===1.1build1
-Django==4.2.2
+Django==4.2.3
 duplicity==0.8.21
 fasteners==0.14.1
 filelock==3.12.0
