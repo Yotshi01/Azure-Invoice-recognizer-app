@@ -45,7 +45,7 @@ Overall, the Invoice Analyzer project offers a convenient way to extract structu
 - For Windows:
 
   ```
-  venv\Scripts\activate
+  venv\bin\activate
   ```
 
 - For macOS/Linux:
@@ -88,7 +88,7 @@ Overall, the Invoice Analyzer project offers a convenient way to extract structu
 - For Windows:
 
   ```
-  venv\Scripts\activate.ps1
+  venv\bin\activate.ps1
   ```
   .ps1 is written for PowerShell. If you are using another type of terminal then please refer the following
 
