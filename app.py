@@ -5,8 +5,10 @@ from azure.core.credentials import AzureKeyCredential
 import json
 
 # microsoft azure endpoint and key
-endpoint = "https://test-01.cognitiveservices.azure.com/"
-key = "d661045ec042469c84d537932e90a7f5"
+# endpoint = "https://test-01.cognitiveservices.azure.com/"
+# key = "d661045ec042469c84d537932e90a7f5"
+endpoint = "https://azure-invoice-recognizer.cognitiveservices.azure.com/"
+key = "3fafea36e1604da985fc5c8df427fb5f"
 
 def format_bounding_region(bounding_regions):
     if not bounding_regions:
